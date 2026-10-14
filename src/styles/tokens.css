@@ -1,0 +1,142 @@
+/* ==========================================================================
+   DESIGN TOKENS
+   The single source of truth for how the site looks.
+
+   To change the brand colors, edit section 1 only. Everything else
+   (text colors, borders, buttons, hover states) is derived from those six
+   values, so the whole site updates together.
+
+   Layers:
+     1. Brand palette   raw colors, the only place hex values live
+     2. Tones           how the palette is used on each kind of background
+     3. Tailwind theme  exposes tones, type and spacing as utility classes
+   ========================================================================== */
+
+/* 1. BRAND PALETTE ---------------------------------------------------------- */
+:root {
+  --brand-primary: #5b3a29; /* Coffee: header, hero, buttons on light backgrounds */
+  --brand-primary-deep: #3b2418; /* Dark coffee: footer, video band */
+  --brand-neutral: #efe3d2; /* Latte: alternate section background */
+  --brand-neutral-light: #f8f2e9; /* Cream: main page background */
+  --brand-accent: #d5a04f; /* Gold: logo, buttons on coffee, thin lines */
+  --brand-ink: #2e1b11; /* Text on light backgrounds */
+}
+
+/* 2. TONES ------------------------------------------------------------------
+   A tone is a background plus the colors that sit on it. Put a tone class on
+   any element (usually through <Section tone="...">) and everything inside
+   picks the right text, border and button colors by itself.              */
+:root,
+.tone-shell {
+  --tone-canvas: var(--brand-neutral-light);
+  --tone-fg: var(--brand-ink);
+  --tone-muted: color-mix(in srgb, var(--brand-ink) 78%, var(--brand-neutral-light));
+  --tone-line: color-mix(in srgb, var(--brand-ink) 18%, transparent);
+  --tone-accent: var(--brand-accent);
+  --tone-action: var(--brand-primary);
+  --tone-on-action: var(--brand-neutral-light);
+}
+
+.tone-sand {
+  --tone-canvas: var(--brand-neutral);
+  --tone-fg: var(--brand-ink);
+  --tone-muted: color-mix(in srgb, var(--brand-ink) 82%, var(--brand-neutral));
+  --tone-line: color-mix(in srgb, var(--brand-ink) 20%, transparent);
+  --tone-accent: var(--brand-accent);
+  --tone-action: var(--brand-primary);
+  --tone-on-action: var(--brand-neutral-light);
+}
+
+.tone-brand {
+  --tone-canvas: var(--brand-primary);
+  --tone-fg: var(--brand-neutral-light);
+  --tone-muted: color-mix(in srgb, var(--brand-neutral) 82%, var(--brand-primary));
+  --tone-line: color-mix(in srgb, var(--brand-neutral) 26%, transparent);
+  --tone-accent: var(--brand-accent);
+  --tone-action: var(--brand-accent);
+  --tone-on-action: var(--brand-ink);
+}
+
+.tone-deep {
+  --tone-canvas: var(--brand-primary-deep);
+  --tone-fg: var(--brand-neutral-light);
+  --tone-muted: color-mix(in srgb, var(--brand-neutral) 78%, var(--brand-primary-deep));
+  --tone-line: color-mix(in srgb, var(--brand-neutral) 22%, transparent);
+  --tone-accent: var(--brand-accent);
+  --tone-action: var(--brand-accent);
+  --tone-on-action: var(--brand-ink);
+}
+
+.tone-shell,
+.tone-sand,
+.tone-brand,
+.tone-deep {
+  --tone-action-hover: color-mix(in srgb, var(--tone-action) 86%, var(--tone-fg));
+  --tone-placeholder: color-mix(in srgb, var(--tone-fg) 12%, var(--tone-canvas));
+  background-color: var(--tone-canvas);
+  color: var(--tone-fg);
+}
+
+/* 3. TAILWIND THEME ---------------------------------------------------------
+   These become utility classes: bg-canvas, text-fg, text-muted, border-line,
+   bg-action, font-display, text-title, py-section, max-w-page and so on.
+   Tailwind's default color palette is switched off on purpose, so pages can
+   only use brand tokens.                                                  */
+@theme inline {
+  --color-*: initial;
+  --color-canvas: var(--tone-canvas);
+  --color-fg: var(--tone-fg);
+  --color-muted: var(--tone-muted);
+  --color-line: var(--tone-line);
+  --color-accent: var(--tone-accent);
+  --color-action: var(--tone-action);
+  --color-action-hover: var(--tone-action-hover);
+  --color-on-action: var(--tone-on-action);
+  --color-placeholder: var(--tone-placeholder);
+
+  /* Typefaces. The font files are imported in src/app/layout.tsx; change
+     the imports there and the names here to switch fonts site-wide. */
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Jost", "Century Gothic", system-ui, sans-serif;
+
+  /* Type scale */
+  --text-display: clamp(2.75rem, 5.2vw + 1rem, 5.25rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.01em;
+  --text-title: clamp(2rem, 2.6vw + 1rem, 3.25rem);
+  --text-title--line-height: 1.1;
+  --text-heading: 1.625rem;
+  --text-heading--line-height: 1.2;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.6;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.5;
+
+  /* Layout */
+  --spacing-section: clamp(4rem, 9vw, 8rem);
+  --spacing-gutter: clamp(1.25rem, 4vw, 3rem);
+  --container-page: 76rem;
+  --container-prose: 38rem;
+
+  /* Shape */
+  --radius-control: 999px;
+}
+
+/* Fades a photo or video into the section's background from the bottom up,
+   so text placed over it stays readable. */
+@utility scrim-bottom {
+  background: linear-gradient(
+    to top,
+    var(--tone-canvas) 0%,
+    color-mix(in srgb, var(--tone-canvas) 45%, transparent) 50%,
+    transparent 100%
+  );
+}
+
+/* The pointed arch from the logo, used as a window for photos. */
+@utility arch-window {
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 140' preserveAspectRatio='none'%3E%3Cpath d='M0 140V58C0 30 28 18 50 0c22 18 50 30 50 58v82z'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+}
