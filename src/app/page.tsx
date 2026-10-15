@@ -81,9 +81,9 @@ export default function HomePage() {
                 See the spa menu
               </Button>
             </div>
-            <p className="mt-8 text-small text-muted">
+            {/* <p className="mt-8 text-small text-muted">
               Treatments from {formatPrice(lowestPrice)}
-            </p>
+            </p> */}
           </div>
           <ArchFrame
             label="treatment at home"
