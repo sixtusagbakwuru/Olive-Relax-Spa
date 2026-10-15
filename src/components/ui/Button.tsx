@@ -5,16 +5,18 @@ import { cn } from "@/lib/cn";
 type Variant = "solid" | "outline";
 
 const base =
-  "inline-flex min-h-12 items-center justify-center rounded-control px-7 text-body font-medium transition-colors";
+  "inline-flex min-h-12 items-center justify-center gap-2 rounded-control px-7 text-body font-medium transition-colors duration-300";
 
 const variants: Record<Variant, string> = {
   solid: "bg-action text-on-action hover:bg-action-hover",
-  outline: "border border-line text-fg hover:border-fg",
+  outline: "border border-line text-fg hover:border-accent hover:text-accent",
 };
 
 /**
- * A link styled as a button. Internal links ("/...") use client-side
- * navigation; anything else opens in a new tab.
+ * A link styled as a button.
+ * - "https://..." links open in a new tab (WhatsApp, maps).
+ * - "#section" and "/#section" links jump to a section of the page.
+ * - Other "/..." links use client-side navigation.
  */
 export function Button({
   href,
@@ -29,17 +31,25 @@ export function Button({
 }) {
   const classes = cn(base, variants[variant], className);
 
-  if (href.startsWith("/")) {
+  if (/^https?:/.test(href)) {
     return (
-      <Link href={href} className={classes}>
+      <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
         {children}
-      </Link>
+      </a>
+    );
+  }
+
+  if (href.includes("#")) {
+    return (
+      <a href={href} className={classes}>
+        {children}
+      </a>
     );
   }
 
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
+    <Link href={href} className={classes}>
       {children}
-    </a>
+    </Link>
   );
 }

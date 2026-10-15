@@ -20,6 +20,9 @@
   --brand-neutral-light: #f8f2e9; /* Cream: main page background */
   --brand-accent: #d5a04f; /* Gold: logo, buttons on coffee, thin lines */
   --brand-ink: #2e1b11; /* Text on light backgrounds */
+
+  /* Motion: one slow, soft easing curve for every animation on the site. */
+  --ease-calm: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 /* 2. TONES ------------------------------------------------------------------

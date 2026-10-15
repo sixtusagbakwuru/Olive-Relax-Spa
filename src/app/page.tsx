@@ -1,57 +1,92 @@
 import Image from "next/image";
-import Link from "next/link";
-import { TreatmentList } from "@/components/TreatmentList";
-import { VisitDetails } from "@/components/VisitDetails";
+import { BookingForm } from "@/components/BookingForm";
+import { ContactDetails } from "@/components/ContactDetails";
+import { MenuCard } from "@/components/MenuCard";
 import { AmbientVideo } from "@/components/ui/AmbientVideo";
 import { ArchFrame } from "@/components/ui/ArchFrame";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { DropIcon, HeartIcon, HomeIcon, LeafIcon, ChatIcon } from "@/components/ui/Icons";
+import { LogoMark } from "@/components/ui/Logo";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { media } from "@/content/media";
-import { bookingHref } from "@/content/site";
-import { featuredTreatments } from "@/content/treatments";
+import { site } from "@/content/site";
+import { formatPrice, lowestPrice, treatments } from "@/content/treatments";
+import { greeting, whatsappLink } from "@/lib/whatsapp";
 
-const visitSteps = [
+const benefits = [
   {
-    title: "Arrive a little early",
-    text: "Come 15 minutes before your booking so you can change and settle in without rushing.",
+    Icon: HomeIcon,
+    title: "Comfort at home",
+    text: "No traffic and no waiting room. Your treatment happens where you already feel at ease.",
   },
   {
-    title: "Tell us what you need",
-    text: "Your therapist asks about pressure, problem areas and anything you would like us to avoid.",
+    Icon: LeafIcon,
+    title: "Professional therapists",
+    text: "Therapists who adjust pressure and technique to what your body needs that day.",
   },
   {
-    title: "Your treatment",
-    text: "A private room, warm towels and no interruptions for the full length of your booking.",
+    Icon: DropIcon,
+    title: "Premium quality oils",
+    text: "Quality massage oils, chosen to suit each treatment.",
   },
   {
-    title: "Take your time after",
-    text: "There is no rush to leave. Rest for a while before you head back out.",
+    Icon: HeartIcon,
+    title: "Relaxation anywhere",
+    text: "At home, in your apartment or wherever you are staying.",
+  },
+];
+
+const steps = [
+  {
+    title: "Choose a treatment",
+    text: "Pick a treatment and length from the spa menu.",
+  },
+  {
+    title: "Message us on WhatsApp",
+    text: "Send your date, time and area, and we confirm availability.",
+  },
+  {
+    title: "Your therapist arrives",
+    text: "At the time you agreed, ready to set up wherever suits you.",
+  },
+  {
+    title: "Stay relaxed",
+    text: "Rest as long as you like afterwards. There is nowhere to drive.",
   },
 ];
 
 export default function HomePage() {
   return (
     <>
-      <Section tone="brand">
-        <div className="grid items-center gap-x-16 gap-y-14 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
-            <h1 className="text-display">Slow down in the middle of Dubai</h1>
+      {/* Hero: the lotus draws itself in, then the text and arch rise */}
+      <section id="top" className="tone-brand overflow-hidden">
+        <Container className="grid items-center gap-x-16 gap-y-14 py-16 sm:py-20 lg:min-h-[calc(100svh-4.5rem)] lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="hero-intro">
+            <LogoMark animated className="h-14 sm:h-16" />
+            <h1 className="mt-8 text-display">The spa comes to you</h1>
             <p className="mt-6 max-w-prose text-lead text-muted">
-              Hammam rituals, massage and facials in a calm, private setting.
-              Book online, or message us and we will find a time that suits
-              you.
+              Thai oil, deep tissue and couple treatments from professional
+              therapists, at your home in {site.city}. Book in a few taps on
+              WhatsApp.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
-              <Button href={bookingHref}>Book a treatment</Button>
-              <Button href="/treatments" variant="outline">
-                See the treatment menu
+              <Button href={whatsappLink(greeting)}>
+                <ChatIcon className="size-5" />
+                Book on WhatsApp
+              </Button>
+              <Button href="#menu" variant="outline">
+                See the spa menu
               </Button>
             </div>
+            <p className="mt-8 text-small text-muted">
+              Treatments from {formatPrice(lowestPrice)}
+            </p>
           </div>
           <ArchFrame
-            label="treatment room or hammam"
-            className="mx-auto max-w-80 lg:max-w-96"
+            label="treatment at home"
+            className="hero-arch mx-auto max-w-80 lg:max-w-96"
           >
             <Image
               src={media.hero.src}
@@ -62,35 +97,78 @@ export default function HomePage() {
               className="object-cover"
             />
           </ArchFrame>
-        </div>
-      </Section>
+        </Container>
+      </section>
 
-      <Section>
-        <div className="grid gap-x-16 gap-y-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <h2 className="text-title">Treatments</h2>
-            <p className="mt-4 max-w-prose text-body text-muted">
-              A few of the treatments guests book most. Every one can be
-              adjusted to what you need on the day.
+      <Section id="about">
+        <div className="grid items-center gap-x-16 gap-y-12 lg:grid-cols-[1fr_1fr]">
+          <Reveal>
+            <h2 className="text-title">About {site.name}</h2>
+            <p className="mt-6 max-w-prose text-lead text-muted">
+              We bring professional massage to your home. Choose your
+              treatment and time, and your therapist comes to you, so you can
+              stay relaxed afterwards instead of driving home.
             </p>
-            <Link
-              href="/treatments"
-              className="mt-6 inline-flex min-h-11 items-center text-body underline decoration-accent underline-offset-4"
-            >
-              See the full treatment menu
-            </Link>
-            <div className="relative mt-8 aspect-[8/5] overflow-hidden">
+          </Reveal>
+          <Reveal delay={150}>
+            <div className="relative aspect-[8/5] overflow-hidden">
               <Image
                 src={media.treatments.src}
                 alt={media.treatments.alt}
                 fill
-                sizes="(min-width: 1024px) 28rem, 100vw"
+                sizes="(min-width: 1024px) 34rem, 100vw"
                 className="object-cover"
               />
             </div>
-          </div>
-          <TreatmentList items={featuredTreatments} />
+          </Reveal>
         </div>
+        <ul className="mt-16 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          {benefits.map(({ Icon, title, text }, index) => (
+            <li key={title}>
+              <Reveal delay={index * 120}>
+                <Icon className="size-8 text-accent" />
+                <h3 className="mt-4 text-heading">{title}</h3>
+                <p className="mt-2 text-body text-muted">{text}</p>
+              </Reveal>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section tone="deep" id="menu">
+        <Reveal>
+          <h2 className="text-title">Spa menu</h2>
+          <p className="mt-4 max-w-prose text-lead text-muted">
+            Home service prices in AED. Choose a length, then book it on
+            WhatsApp with the details already filled in.
+          </p>
+        </Reveal>
+        <ul className="mt-12 grid gap-6 lg:grid-cols-3">
+          {treatments.map((treatment, index) => (
+            <li key={treatment.id}>
+              <Reveal delay={index * 150} className="h-full">
+                <MenuCard treatment={treatment} />
+              </Reveal>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section tone="sand" id="how">
+        <Reveal>
+          <h2 className="text-title">How home booking works</h2>
+        </Reveal>
+        <ol className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step, index) => (
+            <li key={step.title}>
+              <Reveal delay={index * 120} className="border-t border-accent pt-5">
+                <p className="font-display text-title text-muted">{index + 1}</p>
+                <h3 className="mt-3 text-heading">{step.title}</h3>
+                <p className="mt-2 text-body text-muted">{step.text}</p>
+              </Reveal>
+            </li>
+          ))}
+        </ol>
       </Section>
 
       <section className="tone-deep relative isolate overflow-hidden">
@@ -100,53 +178,59 @@ export default function HomePage() {
           className="absolute inset-0 -z-20 h-full w-full object-cover"
         />
         <div className="scrim-bottom absolute inset-0 -z-10" />
-        <Container className="flex min-h-[30rem] flex-col justify-end py-section lg:min-h-[38rem]">
-          <h2 className="text-title">See the space before you come</h2>
-          <p className="mt-4 max-w-prose text-lead text-muted">
-            A short look around, so you know what to expect when you arrive.
-          </p>
+        <Container className="flex min-h-[28rem] flex-col justify-end py-section lg:min-h-[36rem]">
+          <Reveal>
+            <h2 className="text-title">Self care comes home</h2>
+            <p className="mt-4 max-w-prose text-lead text-muted">
+              A calm hour, without leaving your own space.
+            </p>
+          </Reveal>
         </Container>
       </section>
 
-      <Section>
-        <h2 className="text-title">Inside the spa</h2>
-        <ul className="mt-12 grid grid-cols-3 items-start gap-x-5 sm:gap-x-10 lg:gap-x-16">
+      <Section id="gallery">
+        <Reveal>
+          <h2 className="text-title">A moment of calm</h2>
+        </Reveal>
+        <ul className="mt-12 grid grid-cols-3 items-start gap-x-4 sm:gap-x-10 lg:gap-x-16">
           {media.gallery.map((photo, index) => (
             <li key={photo.src} className={index === 1 ? "mt-10 sm:mt-20" : ""}>
-              <ArchFrame label="the spa">
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  sizes="(min-width: 1024px) 22rem, 30vw"
-                  className="object-cover"
-                />
-              </ArchFrame>
+              <Reveal delay={index * 150} className="group">
+                <ArchFrame label="the spa">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(min-width: 1024px) 22rem, 30vw"
+                    className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+                  />
+                </ArchFrame>
+              </Reveal>
             </li>
           ))}
         </ul>
       </Section>
 
-      <Section tone="sand">
-        <h2 className="text-title">What to expect on your visit</h2>
-        <ol className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          {visitSteps.map((step, index) => (
-            <li key={step.title} className="border-t border-accent pt-5">
-              <p className="font-display text-title text-muted">{index + 1}</p>
-              <h3 className="mt-3 text-heading">{step.title}</h3>
-              <p className="mt-2 text-body text-muted">{step.text}</p>
-            </li>
-          ))}
-        </ol>
-      </Section>
-
-      <Section tone="brand" id="visit">
-        <h2 className="text-title">Find us</h2>
-        <div className="mt-10">
-          <VisitDetails />
-        </div>
-        <div className="mt-12">
-          <Button href={bookingHref}>Book a treatment</Button>
+      <Section tone="brand" id="contact">
+        <div className="grid gap-x-20 gap-y-16 lg:grid-cols-[1.4fr_0.6fr]">
+          <div id="book" className="scroll-mt-24">
+            <Reveal>
+              <h2 className="text-title">Book your treatment</h2>
+              <p className="mt-4 max-w-prose text-lead text-muted">
+                Fill in the details and WhatsApp opens with your booking
+                message ready to send.
+              </p>
+            </Reveal>
+            <div className="mt-10">
+              <BookingForm />
+            </div>
+          </div>
+          <Reveal delay={150}>
+            <h2 className="text-title">Contact</h2>
+            <div className="mt-8">
+              <ContactDetails />
+            </div>
+          </Reveal>
         </div>
       </Section>
     </>

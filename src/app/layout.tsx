@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { site } from "@/content/site";
@@ -17,7 +18,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: `${site.name} | ${site.tagline}`,
+    default: `${site.name} | Home spa treatments in ${site.city}`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <FloatingWhatsApp />
       </body>
     </html>
   );

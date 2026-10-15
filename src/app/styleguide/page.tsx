@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { TreatmentList } from "@/components/TreatmentList";
+import { MenuCard } from "@/components/MenuCard";
 import { ArchFrame } from "@/components/ui/ArchFrame";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/ui/Logo";
 import type { Tone } from "@/components/ui/Section";
-import { featuredTreatments } from "@/content/treatments";
+import { treatments } from "@/content/treatments";
 
 export const metadata: Metadata = {
   title: "Style guide",
@@ -124,9 +124,9 @@ export default function StyleGuidePage() {
             <div className="tone-brand mt-4 p-8">
               <Logo />
             </div>
-            <h3 className="mt-12 text-heading">Treatment list</h3>
-            <div className="mt-4">
-              <TreatmentList items={featuredTreatments.slice(0, 2)} />
+            <h3 className="mt-12 text-heading">Spa menu card</h3>
+            <div className="tone-deep mt-4 max-w-md p-6">
+              <MenuCard treatment={treatments[0]} />
             </div>
           </div>
           <div>

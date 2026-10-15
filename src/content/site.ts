@@ -2,36 +2,30 @@
  * Business details used across the site.
  * Replace every value in [square brackets] with the real one.
  */
+const city = "Dubai";
+
 export const site = {
   name: "Olive Relaxing Spa",
   tagline: "Relax • Renew • Revive",
-  description:
-    "Hammam rituals, massage and facials in a calm, private setting in Dubai.",
+  city,
+  description: `Thai oil, deep tissue and couple massage at your home in ${city}. Book on WhatsApp.`,
 
-  /** Link to your online booking page (for example your Fresha page).
-   *  While this is empty, "Book" buttons lead to the contact page. */
-  bookingUrl: "",
-
-  /** WhatsApp number, digits only with country code (for example 9715XXXXXXXX).
-   *  While this is empty, the WhatsApp link is hidden. */
-  whatsapp: "",
-
-  phone: "[Phone number]",
+  /** WhatsApp number used for every booking link: digits only, with country code. */
+  whatsapp: "971556558768",
+  /** The same number, written the way visitors should read it. */
+  phone: "+971 556 558 768",
   email: "[Email address]",
-  address: ["[Building and street]", "[Area], Dubai", "United Arab Emirates"],
+
+  /** Where the therapists travel to. */
+  serviceArea: `[Areas you cover], ${city}`,
   hours: [{ days: "[Days open]", time: "[Opening hours]" }],
 
-  /** Shown in the footer as "Website designed by ...". */
-  credit: { name: "VeriTechPro", href: "https://veritechpro.com" },
-
+  /** Header and footer links. Each one jumps to a section of the home page. */
   nav: [
-    { label: "Treatments", href: "/treatments" },
-    { label: "Contact", href: "/contact" },
+    { label: "About", href: "/#about" },
+    { label: "Spa menu", href: "/#menu" },
+    { label: "How it works", href: "/#how" },
+    { label: "Gallery", href: "/#gallery" },
+    { label: "Contact", href: "/#contact" },
   ],
 };
-
-export const bookingHref = site.bookingUrl || "/contact";
-
-export const whatsappHref = site.whatsapp
-  ? `https://wa.me/${site.whatsapp}`
-  : null;

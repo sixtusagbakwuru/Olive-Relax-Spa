@@ -1,116 +1,60 @@
 /**
- * The treatment menu. This is sample content: replace it with the spa's
- * real treatments, durations and prices.
+ * The spa menu: home service treatments, lengths and prices in AED.
+ * Prices are taken from the Home Services price list.
  */
+export type TreatmentOption = {
+  minutes: number;
+  /** Price in AED. */
+  price: number;
+};
+
 export type Treatment = {
+  id: string;
   name: string;
-  duration: string;
   description: string;
-  /** Price in AED, for example "350". */
-  price: string;
-  /** Show on the home page. */
-  featured?: boolean;
+  options: TreatmentOption[];
 };
 
-export type TreatmentGroup = {
-  title: string;
-  intro: string;
-  items: Treatment[];
-};
-
-export const treatmentGroups: TreatmentGroup[] = [
+export const treatments: Treatment[] = [
   {
-    title: "Hammam",
-    intro: "Steam, black soap and a full-body scrub, the traditional way.",
-    items: [
-      {
-        name: "Traditional hammam",
-        duration: "60 min",
-        description:
-          "Steam, black soap, a kessa glove scrub and a warm rinse.",
-        price: "[Price]",
-        featured: true,
-      },
-      {
-        name: "Royal hammam",
-        duration: "90 min",
-        description:
-          "The traditional hammam, followed by a rhassoul clay mask and an argan oil massage.",
-        price: "[Price]",
-      },
+    id: "thai-oil",
+    name: "Thai oil treatment",
+    description:
+      "A full-body massage that combines Thai pressure and stretching techniques with warm oil.",
+    options: [
+      { minutes: 60, price: 400 },
+      { minutes: 90, price: 500 },
+      { minutes: 120, price: 700 },
     ],
   },
   {
-    title: "Massage",
-    intro: "Choose your pressure and the areas you want us to focus on.",
-    items: [
-      {
-        name: "Swedish massage",
-        duration: "60 or 90 min",
-        description:
-          "Long, flowing strokes with light to medium pressure for general relaxation.",
-        price: "[Price]",
-        featured: true,
-      },
-      {
-        name: "Deep tissue massage",
-        duration: "60 or 90 min",
-        description:
-          "Slow, firm pressure for tight shoulders, back and legs.",
-        price: "[Price]",
-      },
-      {
-        name: "Hot stone massage",
-        duration: "75 min",
-        description:
-          "Warm basalt stones and oil to ease muscle tension.",
-        price: "[Price]",
-        featured: true,
-      },
-      {
-        name: "Couples massage",
-        duration: "60 min",
-        description: "Two therapists, side by side in a private room.",
-        price: "[Price]",
-      },
+    id: "deep-tissue",
+    name: "Deep tissue treatment",
+    description:
+      "Slow, firm pressure that works into tight muscles in the back, shoulders and legs.",
+    options: [
+      { minutes: 60, price: 400 },
+      { minutes: 90, price: 500 },
+      { minutes: 120, price: 700 },
     ],
   },
   {
-    title: "Face",
-    intro: "Facials matched to your skin on the day.",
-    items: [
-      {
-        name: "Signature facial",
-        duration: "60 min",
-        description:
-          "Cleanse, exfoliation, mask and facial massage.",
-        price: "[Price]",
-        featured: true,
-      },
-      {
-        name: "Hydrating facial",
-        duration: "45 min",
-        description:
-          "A lighter facial for dry or sun-tired skin.",
-        price: "[Price]",
-      },
-    ],
-  },
-  {
-    title: "Body",
-    intro: "Scrubs and wraps that leave skin soft.",
-    items: [
-      {
-        name: "Body scrub and wrap",
-        duration: "75 min",
-        description:
-          "A full-body scrub, then a warm wrap while you rest.",
-        price: "[Price]",
-      },
+    id: "couple",
+    name: "Couple treatment",
+    description:
+      "Two people treated at the same time, side by side, each with their own therapist.",
+    options: [
+      { minutes: 60, price: 800 },
+      { minutes: 90, price: 1000 },
+      { minutes: 120, price: 1400 },
     ],
   },
 ];
 
-export const featuredTreatments = treatmentGroups
-  .flatMap((group) => group.items)
-  .filter((item) => item.featured);
+export const lowestPrice = Math.min(
+  ...treatments.flatMap((t) => t.options.map((o) => o.price)),
+);
+
+export function formatPrice(price: number) {
+  return `AED ${price.toLocaleString("en-US")}`;
+}
