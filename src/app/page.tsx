@@ -4,10 +4,10 @@ import { ContactDetails } from "@/components/ContactDetails";
 import { MenuCard } from "@/components/MenuCard";
 import { AmbientVideo } from "@/components/ui/AmbientVideo";
 import { ArchFrame } from "@/components/ui/ArchFrame";
+import { PebbleFrame } from "@/components/ui/PebbleFrame";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { DropIcon, HeartIcon, HomeIcon, LeafIcon, ChatIcon } from "@/components/ui/Icons";
-import { LogoMark } from "@/components/ui/Logo";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { media } from "@/content/media";
@@ -60,12 +60,23 @@ const steps = [
 export default function HomePage() {
   return (
     <>
-      {/* Hero: the lotus draws itself in, then the text and arch rise */}
+      {/* Hero: the text and arch rise in on load */}
       <section id="top" className="tone-brand overflow-hidden">
         <Container className="grid items-center gap-x-16 gap-y-14 py-16 sm:py-20 lg:min-h-[calc(100svh-4.5rem)] lg:grid-cols-[1.1fr_0.9fr]">
           <div className="hero-intro">
-            <LogoMark animated className="h-14 sm:h-16" />
-            <h1 className="mt-8 text-display">The spa comes to you</h1>
+            {media.heroStill ? (
+              <PebbleFrame className="mb-10 w-64 sm:w-80">
+                <Image
+                  src={media.heroStill.src}
+                  alt={media.heroStill.alt}
+                  fill
+                  priority
+                  sizes="20rem"
+                  className="object-cover"
+                />
+              </PebbleFrame>
+            ) : null}
+            <h1 className="text-display">The spa comes to you</h1>
             <p className="mt-6 max-w-prose text-lead text-muted">
               Thai oil, deep tissue and couple treatments from professional
               therapists, at your home in {site.city}. Book in a few taps on
@@ -136,8 +147,9 @@ export default function HomePage() {
         <Reveal>
           <h2 className="text-title">Spa menu</h2>
           <p className="mt-4 max-w-prose text-lead text-muted">
-            Home service prices in AED. Choose a length, then book it on
-            WhatsApp with the details already filled in.
+            You can choose any spa treatment in the comfort of your home or
+            hotel apartment, then book on WhatsApp with the treatment details
+            already filled in.
           </p>
         </Reveal>
         <ul className="mt-12 grid gap-6 lg:grid-cols-3">

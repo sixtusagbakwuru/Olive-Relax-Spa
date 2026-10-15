@@ -16,6 +16,14 @@ export const media = {
     video: "/media/hero.mp4",
     poster: "/media/hero.jpg",
   },
+  /**
+   * Photo above the hero heading (landscape, about 900 x 675 px).
+   * Set this to null to hide it.
+   */
+  heroStill: {
+    src: "/media/hero-still.jpg",
+    alt: "Amber massage oil bottles on a wooden tray beside soft folded towels",
+  } as { src: string; alt: string } | null,
   /** Photo in the About section. */
   treatments: {
     src: "/media/treatments.jpg",

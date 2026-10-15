@@ -28,10 +28,10 @@ export function LogoMark({
       viewBox="-430 -490 860 530"
       fill="none"
       stroke="currentColor"
-      strokeWidth="24"
+      strokeWidth="36"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={cn("h-8 w-auto text-accent", animated && "lotus-draw", className)}
+      className={cn("h-10 w-auto text-accent", animated && "lotus-draw", className)}
     >
       {petals.map((d) => (
         <path key={d} d={d} pathLength={animated ? 1 : undefined} />
