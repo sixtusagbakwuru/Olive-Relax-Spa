@@ -6,6 +6,7 @@
  *
  * Suggested sizes:
  *   hero video      portrait 600 x 840 px, MP4 (H.264), no sound, under 15 s
+ *   hero slides     landscape, at least 2000 px wide
  *   gallery         portrait, about 1000 x 1400 px
  *   about photo     landscape, about 1600 x 1000 px
  *   band video      landscape 1280 px wide, MP4 (H.264), no sound, under 15 s
@@ -17,13 +18,16 @@ export const media = {
     poster: "/media/hero.jpg",
   },
   /**
-   * Photo above the hero heading (landscape, about 900 x 675 px).
-   * Set this to null to hide it.
+   * Background photos behind the hero, shown one after another as a
+   * slideshow (landscape, at least 2000 px wide). Add, remove or reorder
+   * them here; a list of one photo shows it without a slideshow.
    */
-  heroStill: {
-    src: "/media/hero-still.jpg",
-    alt: "Amber massage oil bottles on a wooden tray beside soft folded towels",
-  } as { src: string; alt: string } | null,
+  heroSlides: [
+    "/media/hero-slide-1.jpg",
+    "/media/hero-slide-2.jpg",
+    "/media/hero-slide-3.jpg",
+    "/media/hero-slide-4.jpg",
+  ],
   /** Photo in the About section. */
   treatments: {
     src: "/media/treatments.jpg",

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { BookingForm } from "@/components/BookingForm";
+import { HeroSlideshow } from "@/components/HeroSlideshow";
 import { ContactDetails } from "@/components/ContactDetails";
 import { MenuCard } from "@/components/MenuCard";
 import { AmbientVideo } from "@/components/ui/AmbientVideo";
 import { ArchFrame } from "@/components/ui/ArchFrame";
-import { PebbleFrame } from "@/components/ui/PebbleFrame";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { DropIcon, HeartIcon, HomeIcon, LeafIcon, ChatIcon } from "@/components/ui/Icons";
@@ -60,22 +60,12 @@ const steps = [
 export default function HomePage() {
   return (
     <>
-      {/* Hero: the text and arch rise in on load */}
-      <section id="top" className="tone-brand overflow-hidden">
+      {/* Hero: photo slideshow behind; text sits on a frosted panel */}
+      <section id="top" className="tone-brand relative isolate overflow-hidden">
+        <HeroSlideshow slides={media.heroSlides} />
+        <div aria-hidden="true" className="hero-scrim absolute inset-0 -z-10" />
         <Container className="grid items-center gap-x-16 gap-y-14 py-16 sm:py-20 lg:min-h-[calc(100svh-4.5rem)] lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="hero-intro">
-            {media.heroStill ? (
-              <PebbleFrame className="mb-10 w-64 sm:w-80">
-                <Image
-                  src={media.heroStill.src}
-                  alt={media.heroStill.alt}
-                  fill
-                  priority
-                  sizes="20rem"
-                  className="object-cover"
-                />
-              </PebbleFrame>
-            ) : null}
+          <div className="hero-intro hero-panel -mx-2 p-6 sm:mx-0 sm:p-10">
             <h1 className="text-display">The spa comes to you</h1>
             <p className="mt-6 max-w-prose text-lead text-muted">
               Thai oil, deep tissue and couple treatments from professional

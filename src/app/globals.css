@@ -84,6 +84,38 @@
   animation: arch-in 1.4s var(--ease-calm) 0.4s both;
 }
 
+/* Hero slideshow: each photo zooms slowly while it is showing. A light wash
+   keeps the photos bright; the text gets its own frosted panel instead. */
+@keyframes slow-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.hero-slide[data-active="true"] img {
+  animation: slow-zoom 9s ease-out both;
+}
+
+.hero-scrim {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--tone-canvas) 30%, transparent) 0%,
+    color-mix(in srgb, var(--tone-canvas) 10%, transparent) 40%,
+    color-mix(in srgb, var(--tone-canvas) 45%, transparent) 100%
+  );
+}
+
+.hero-panel {
+  --tone-muted: color-mix(in srgb, var(--brand-neutral) 92%, var(--brand-primary));
+  background: color-mix(in srgb, var(--tone-canvas) 86%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--tone-accent);
+}
+
 /* Scroll reveals, driven by src/components/ui/Reveal.tsx */
 [data-reveal] {
   transition:
@@ -106,7 +138,8 @@
   }
 
   .hero-intro > *,
-  .hero-arch {
+  .hero-arch,
+  .hero-slide img {
     animation: none;
   }
 
