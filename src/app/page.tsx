@@ -88,13 +88,10 @@ export default function HomePage() {
             label="treatment at home"
             className="hero-arch mx-auto max-w-80 lg:max-w-96"
           >
-            <Image
-              src={media.hero.src}
-              alt={media.hero.alt}
-              fill
-              priority
-              sizes="(min-width: 1024px) 24rem, 20rem"
-              className="object-cover"
+            <AmbientVideo
+              src={media.hero.video}
+              poster={media.hero.poster}
+              className="absolute inset-0 h-full w-full object-cover"
             />
           </ArchFrame>
         </Container>

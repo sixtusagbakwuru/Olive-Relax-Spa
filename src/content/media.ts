@@ -1,39 +1,41 @@
 /**
- * Every photo and video on the site.
+ * Every photo and video on the site. The files live in public/media.
  *
- * The files live in public/media. They are illustrated stand-ins: to use the
- * real ones, save your photo or video over the file with the same name (or
- * change the path here) and update the "alt" text to describe the new image.
+ * To change one, save the new file over the old one with the same name
+ * (or change the path here), and update its "alt" text to describe it.
  *
  * Suggested sizes:
- *   hero, gallery   portrait, about 1000 x 1400 px
- *   treatments      landscape, about 1600 x 1000 px
- *   video           landscape 1280 x 720 px or larger, MP4 (H.264), no sound,
- *                   ideally under 10 seconds and under 5 MB
+ *   hero video      portrait 600 x 840 px, MP4 (H.264), no sound, under 15 s
+ *   gallery         portrait, about 1000 x 1400 px
+ *   about photo     landscape, about 1600 x 1000 px
+ *   band video      landscape 1280 px wide, MP4 (H.264), no sound, under 15 s
  */
 export const media = {
+  /** Plays silently inside the arch at the top of the page. */
   hero: {
-    src: "/media/hero.jpg",
-    alt: "Illustration of arches leading to a lit doorway above a still pool",
+    video: "/media/hero.mp4",
+    poster: "/media/hero.jpg",
   },
+  /** Photo in the About section. */
   treatments: {
     src: "/media/treatments.jpg",
-    alt: "Illustration of stacked stones, a candle, a bowl of water and folded towels",
+    alt: "A therapist giving a back massage in a bright room with plants",
   },
   gallery: [
     {
       src: "/media/gallery-1.jpg",
-      alt: "Illustration of three lit arches reflected in a pool",
+      alt: "A therapist gently massaging a client's face",
     },
     {
       src: "/media/gallery-2.jpg",
-      alt: "Illustration of palm trees beside water with dunes behind",
+      alt: "Close-up of a hand massage with oil",
     },
     {
       src: "/media/gallery-3.jpg",
-      alt: "Illustration of a bowl of water with petals, seen from above",
+      alt: "A therapist giving a back massage in warm light",
     },
   ],
+  /** Background of the "Self care comes home" band. */
   video: {
     src: "/media/ambience.mp4",
     poster: "/media/ambience-poster.jpg",
